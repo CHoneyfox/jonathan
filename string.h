@@ -85,7 +85,7 @@ void jstringAppend(jstring* str, const char* add)
 
         for (int i = str->length; i < new_size; i++)
         {
-            //str->string[i] = 0;
+            str->string[i] = 0;
         }
     }
 
