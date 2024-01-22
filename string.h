@@ -42,7 +42,7 @@ jstring jstringNew();
 void jstringFree(jstring *str);
 
 void jstringAppend(jstring* s, const char* str);
-
+void jstringSlice(jstring* s, int start, int end);
 
 #ifdef JONATHAN_STRING_IMPLEMENTATION
 
@@ -91,6 +91,24 @@ void jstringAppend(jstring* str, const char* add)
 
     strcpy(str->string+str->length, add);
     str->length += additional_size;
+}
+
+void jstringSlice(jstring* s, int start, int end)
+{
+
+    ASSERT(start <= end);
+
+    int pos = 0;
+    for (int i = start; i < end; i++)
+    {
+        s->string[pos] = s->string[i];
+        pos++;
+    }
+    for (; pos < s->length; pos++)
+    {
+        s->string[pos] = 0;
+    }
+    s->length = end-start;
 }
 
 #endif // JONATHAN_STRING_IMPLEMENTATION
